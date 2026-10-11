@@ -1,0 +1,397 @@
+{
+  "generated_from": "data/campus_customs_new.db and output/audit_trail.json (the run after the database reset at 2026-10-10T22:13:22.292+00:00)",
+  "shop_today": "2026-08-31",
+  "cash": {
+    "starting_checking_balance": 3400.0,
+    "total_paid": 3248.0,
+    "ending_checking_balance": 152.0,
+    "matches_cash_accounts": true
+  },
+  "tickets": [
+    {
+      "id": 101,
+      "subject": "Bulldog tee",
+      "requester": "Tauhid Zaman",
+      "type": "customer_order",
+      "final_status": "resolved",
+      "resolved_how": "Both payments approved and paid by Ananya",
+      "resolved_at_utc": "2026-10-10T22:14:46.765+00:00",
+      "outcome": "The size S tee was out of stock and Bulldog Print Co would not ship while overdue invoice 501 was unpaid. Ananya approved paying that invoice ($840.00) and then an $8.00 purchase order for 1 tee; both were paid and the ticket resolved. A reply to Tauhid was drafted (not sent).",
+      "boss_decision_status": "ready_pending_human_approval",
+      "cash_change": -848.0,
+      "payments": [
+        {
+          "proposal_id": 1,
+          "kind": "invoice",
+          "amount": 840.0,
+          "checking_balance_after": 160.0
+        },
+        {
+          "proposal_id": 2,
+          "kind": "purchase_order",
+          "amount": 8.0,
+          "checking_balance_after": 152.0
+        }
+      ],
+      "agent_contributions": {
+        "boss": {
+          "called": true,
+          "times_called": 1,
+          "what_it_said": [
+            "The size S tee is out of stock, so prepare restocking from Bulldog Print Co. Invoice payment and the purchase order are prepared for human approval; shipment remains blocked until invoice 501 is paid. A customer reply is drafted, not sent."
+          ],
+          "tools_used": {
+            "list_open_tickets": 1
+          },
+          "asked": [
+            "inventory",
+            "accounting",
+            "customer_service"
+          ]
+        },
+        "inventory": {
+          "called": true,
+          "times_called": 2,
+          "what_it_said": [
+            "No size S stock; shortfall is 1. Bulldog Print Co fits apparel but cannot ship new product while unpaid invoice 501 is open. Other vendors’ specialties do not fit.",
+            "Bulldog Print Co’s apparel reprint specialty fits this tee, but it cannot ship now: unpaid open invoice 501 blocks it. Stock is 0, so the shortfall is 1."
+          ],
+          "tools_used": {
+            "check_stock_and_restock_vendors": 2
+          },
+          "asked": []
+        },
+        "accounting": {
+          "called": true,
+          "times_called": 1,
+          "what_it_said": [
+            "Invoice 501 was affordable and both proposals were prepared, not paid. The purchase order remains blocked by invoice 501 pending its payment and human approval."
+          ],
+          "tools_used": {
+            "get_cash_and_open_invoices": 1,
+            "propose_payment": 1,
+            "propose_purchase_order": 1
+          },
+          "asked": [
+            "inventory"
+          ]
+        },
+        "facilities": {
+          "called": false
+        },
+        "customer_service": {
+          "called": true,
+          "times_called": 1,
+          "what_it_said": [
+            "Draft reply for ticket 101; confirms size S is unavailable and we’ll follow up once availability is confirmed."
+          ],
+          "tools_used": {
+            "list_open_tickets": 1
+          },
+          "asked": []
+        }
+      },
+      "delegations_in_order": [
+        {
+          "from": "boss",
+          "to": "inventory"
+        },
+        {
+          "from": "boss",
+          "to": "accounting"
+        },
+        {
+          "from": "accounting",
+          "to": "inventory"
+        },
+        {
+          "from": "boss",
+          "to": "customer_service"
+        }
+      ],
+      "human_approvals": [
+        {
+          "time": "2026-10-10T22:13:56.377+00:00",
+          "ticket_id": 101,
+          "type": "approval",
+          "proposal_id": 2,
+          "kind": "purchase_order",
+          "amount": 8.0,
+          "by": "Ananya"
+        },
+        {
+          "time": "2026-10-10T22:13:56.407+00:00",
+          "ticket_id": 101,
+          "type": "payment_attempt",
+          "proposal_id": 2,
+          "paid": false,
+          "amount": null,
+          "reason_refused": "Vendor 1 still has unpaid open invoice(s) [501]; it will not ship new product until they are paid.",
+          "balance_after": null
+        },
+        {
+          "time": "2026-10-10T22:14:10.100+00:00",
+          "ticket_id": 101,
+          "type": "payment_attempt",
+          "proposal_id": 2,
+          "paid": false,
+          "amount": null,
+          "reason_refused": "Vendor 1 still has unpaid open invoice(s) [501]; it will not ship new product until they are paid.",
+          "balance_after": null
+        },
+        {
+          "time": "2026-10-10T22:14:42.489+00:00",
+          "ticket_id": 101,
+          "type": "approval",
+          "proposal_id": 1,
+          "kind": "invoice",
+          "amount": 840.0,
+          "by": "Ananya"
+        },
+        {
+          "time": "2026-10-10T22:14:42.528+00:00",
+          "ticket_id": 101,
+          "type": "payment_attempt",
+          "proposal_id": 1,
+          "paid": true,
+          "amount": 840.0,
+          "reason_refused": null,
+          "balance_after": 160.0
+        },
+        {
+          "time": "2026-10-10T22:14:46.765+00:00",
+          "ticket_id": 101,
+          "type": "payment_attempt",
+          "proposal_id": 2,
+          "paid": true,
+          "amount": 8.0,
+          "reason_refused": null,
+          "balance_after": 152.0
+        }
+      ],
+      "run": {
+        "run_id": "798f1134b1b6",
+        "model_requests": 15,
+        "input_tokens": 22428,
+        "output_tokens": 1357,
+        "delegations": 4,
+        "mcp_cache_hits": 0
+      }
+    },
+    {
+      "id": 102,
+      "subject": "Rent due",
+      "requester": "Elm City Properties",
+      "type": "rent_notice",
+      "final_status": "resolved",
+      "resolved_how": "Payment approved and paid by Ananya",
+      "resolved_at_utc": "2026-10-10T22:14:07.386+00:00",
+      "outcome": "Rent of $2,400.00 for the Chapel Street shop was due 2026-09-02. Ananya approved the payment and it was paid, which resolved the ticket. A reply to Elm City Properties was drafted (not sent).",
+      "boss_decision_status": "ready_pending_human_approval",
+      "cash_change": -2400.0,
+      "payments": [
+        {
+          "proposal_id": 3,
+          "kind": "rent",
+          "amount": 2400.0,
+          "checking_balance_after": 1000.0
+        }
+      ],
+      "agent_contributions": {
+        "boss": {
+          "called": true,
+          "times_called": 1,
+          "what_it_said": [
+            "Prepared the $2,400 rent payment for lease 1, due September 2, 2026; it remains pending human approval and has not been paid. A reply to Elm City Properties is drafted, not sent."
+          ],
+          "tools_used": {
+            "list_open_tickets": 1
+          },
+          "asked": [
+            "facilities",
+            "accounting",
+            "customer_service"
+          ]
+        },
+        "inventory": {
+          "called": false
+        },
+        "accounting": {
+          "called": true,
+          "times_called": 1,
+          "what_it_said": [
+            "Prepared the $2,400 rent payment proposal for lease 1 under ticket 102. It is pending human approval and has not been paid."
+          ],
+          "tools_used": {
+            "get_cash_and_open_invoices": 1,
+            "propose_payment": 1
+          },
+          "asked": []
+        },
+        "facilities": {
+          "called": true,
+          "times_called": 1,
+          "what_it_said": [
+            "Lease 1 rent is $2,400, due 2026-09-02 (in 2 days). Checking has $3,400; rent alone leaves $1,000. Including $840 in open invoices leaves $160. Prepare the $2,400 rent payment for human approval; no payment has been made."
+          ],
+          "tools_used": {
+            "check_rent_affordability": 1
+          },
+          "asked": []
+        },
+        "customer_service": {
+          "called": true,
+          "times_called": 1,
+          "what_it_said": [
+            "Draft reply prepared for Elm City Properties; no payment is claimed or date promised."
+          ],
+          "tools_used": {
+            "list_open_tickets": 1
+          },
+          "asked": []
+        }
+      },
+      "delegations_in_order": [
+        {
+          "from": "boss",
+          "to": "facilities"
+        },
+        {
+          "from": "boss",
+          "to": "accounting"
+        },
+        {
+          "from": "boss",
+          "to": "customer_service"
+        }
+      ],
+      "human_approvals": [
+        {
+          "time": "2026-10-10T22:14:07.354+00:00",
+          "ticket_id": 102,
+          "type": "approval",
+          "proposal_id": 3,
+          "kind": "rent",
+          "amount": 2400.0,
+          "by": "Ananya"
+        },
+        {
+          "time": "2026-10-10T22:14:07.386+00:00",
+          "ticket_id": 102,
+          "type": "payment_attempt",
+          "proposal_id": 3,
+          "paid": true,
+          "amount": 2400.0,
+          "reason_refused": null,
+          "balance_after": 1000.0
+        }
+      ],
+      "run": {
+        "run_id": "0a1b2387d0af",
+        "model_requests": 12,
+        "input_tokens": 17475,
+        "output_tokens": 916,
+        "delegations": 3,
+        "mcp_cache_hits": 1
+      }
+    },
+    {
+      "id": 103,
+      "subject": "Bulk hoodie discount",
+      "requester": "Yale AI Club",
+      "type": "price_override",
+      "final_status": "resolved",
+      "resolved_how": "Closed by Ananya (a decision, not a payment)",
+      "resolved_at_utc": "2026-10-10T22:16:14.134+00:00",
+      "outcome": "Only 8 of the 20 size-M hoodies were in stock and the restock vendor was blocked by unpaid invoice 501, so the boss recommended no discount commitment. Ananya closed the ticket herself with the decision \"Not offering a discount at this time - politely decline\". No money moved. A reply to Yale AI Club was drafted (not sent), written before that decision.",
+      "boss_decision_status": "needs_info",
+      "cash_change": 0,
+      "payments": [],
+      "agent_contributions": {
+        "boss": {
+          "called": true,
+          "times_called": 1,
+          "what_it_said": [
+            "Keep the requested bulk discount and fulfillment of all 20 unapproved while availability is confirmed. A draft reply is ready; 8 size-M hoodies are available, and the remaining 12 cannot currently be restocked because vendor invoice 501 is unpaid."
+          ],
+          "tools_used": {
+            "list_open_tickets": 1
+          },
+          "asked": [
+            "accounting",
+            "inventory",
+            "customer_service"
+          ]
+        },
+        "inventory": {
+          "called": true,
+          "times_called": 1,
+          "what_it_said": [
+            "8 in stock; short by 12 for 20 requested. Bulldog Print Co fits apparel but cannot ship now due to unpaid invoice 501."
+          ],
+          "tools_used": {
+            "check_stock_and_restock_vendors": 1
+          },
+          "asked": []
+        },
+        "accounting": {
+          "called": true,
+          "times_called": 1,
+          "what_it_said": [
+            "CC-HOOD-NAVY M costs $22/unit; list price $58 yields $36/unit margin. The break-even discount is 62.07% (ceiling; above cost requires a discount below that). Stock is 8 of 20, short 12. No payment or order prepared."
+          ],
+          "tools_used": {
+            "get_margin_for_discount": 1,
+            "get_cash_and_open_invoices": 1
+          },
+          "asked": []
+        },
+        "facilities": {
+          "called": false
+        },
+        "customer_service": {
+          "called": true,
+          "times_called": 1,
+          "what_it_said": [
+            "Draft prepared for Yale AI Club; remaining quantity and any discount are still being confirmed."
+          ],
+          "tools_used": {
+            "list_open_tickets": 1
+          },
+          "asked": []
+        }
+      },
+      "delegations_in_order": [
+        {
+          "from": "boss",
+          "to": "accounting"
+        },
+        {
+          "from": "boss",
+          "to": "inventory"
+        },
+        {
+          "from": "boss",
+          "to": "customer_service"
+        }
+      ],
+      "human_approvals": [
+        {
+          "time": "2026-10-10T22:16:14.134+00:00",
+          "ticket_id": 103,
+          "type": "ticket_closed_by_human",
+          "by": "Ananya",
+          "note": "Not offering a discount at this time - politely decline"
+        }
+      ],
+      "run": {
+        "run_id": "72177f0933cb",
+        "model_requests": 10,
+        "input_tokens": 14167,
+        "output_tokens": 950,
+        "delegations": 3,
+        "mcp_cache_hits": 1
+      }
+    }
+  ]
+}

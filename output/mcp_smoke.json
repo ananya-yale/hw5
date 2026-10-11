@@ -1,0 +1,120 @@
+{
+  "how_tested": "Called through the MCP protocol: a FastMCP client launched mcp_server/server.py over stdio using the command/args in .mcp.json, then each tool output was compared to direct read-only SQL on data/campus_customs_new.db.",
+  "server": "campus-customs",
+  "tools_listed": [
+    "check_rent_affordability",
+    "get_margin_for_discount",
+    "get_order_fulfillment_blockers"
+  ],
+  "tests": [
+    {
+      "prompt": "Ticket 101: why can't Tauhid Zaman's tee order ship, and what's blocking it?",
+      "tool": "get_order_fulfillment_blockers",
+      "arguments": {
+        "ticket_id": 101
+      },
+      "output": {
+        "found": true,
+        "ticket_id": 101,
+        "requester": "Tauhid Zaman",
+        "sku": "CC-TEE-WHITE",
+        "product_name": "Classic Bulldog Tee",
+        "size": "S",
+        "qty_requested": 1,
+        "qty_on_hand": 0,
+        "shortfall": 1,
+        "order_total_at_list": 28.0,
+        "linked_invoice": {
+          "id": 501,
+          "amount": 840.0,
+          "due_date": "2026-08-28",
+          "status": "open",
+          "description": "Rush reprint CC-TEE-WHITE S",
+          "vendor_name": "Bulldog Print Co",
+          "lead_days": 5,
+          "days_overdue": 3
+        },
+        "date_today": "2026-08-31"
+      },
+      "matches_database": {
+        "qty_on_hand": true,
+        "shortfall": true,
+        "order_total_at_list": true,
+        "invoice_amount": true,
+        "lead_days": true,
+        "days_overdue": true
+      },
+      "all_match": true
+    },
+    {
+      "prompt": "Ticket 102: can the shop cover the Chapel Street rent plus its open vendor invoices?",
+      "tool": "check_rent_affordability",
+      "arguments": {
+        "lease_id": 1
+      },
+      "output": {
+        "found": true,
+        "lease_id": 1,
+        "space_name": "Chapel Street shop",
+        "landlord": "Elm City Properties",
+        "monthly_rent": 2400.0,
+        "next_due": "2026-09-02",
+        "date_today": "2026-08-31",
+        "days_until_due": 2,
+        "checking_balance": 3400.0,
+        "balance_as_of": "2026-08-31",
+        "open_invoices": [
+          {
+            "id": 501,
+            "amount": 840.0,
+            "due_date": "2026-08-28"
+          }
+        ],
+        "open_invoices_total": 840.0,
+        "cash_after_rent": 1000.0,
+        "cash_after_rent_and_open_invoices": 160.0,
+        "can_cover_rent": true,
+        "can_cover_rent_and_open_invoices": true
+      },
+      "matches_database": {
+        "monthly_rent": true,
+        "checking_balance": true,
+        "open_invoices_total": true,
+        "cash_after_rent": true,
+        "cash_after_rent_and_open_invoices": true
+      },
+      "all_match": true
+    },
+    {
+      "prompt": "Ticket 103: how much room is there to discount 20 size-M navy hoodies for the Yale AI Club, and is there enough stock?",
+      "tool": "get_margin_for_discount",
+      "arguments": {
+        "sku": "CC-HOOD-NAVY",
+        "size": "M",
+        "qty": 20
+      },
+      "output": {
+        "found": true,
+        "sku": "CC-HOOD-NAVY",
+        "size": "M",
+        "qty_requested": 20,
+        "unit_cost": 22.0,
+        "list_price": 58.0,
+        "margin_per_unit": 36.0,
+        "break_even_discount_percent": 62.07,
+        "total_profit_at_list": 720.0,
+        "qty_on_hand": 8,
+        "shortfall": 12
+      },
+      "matches_database": {
+        "unit_cost": true,
+        "list_price": true,
+        "margin_per_unit": true,
+        "total_profit_at_list": true,
+        "qty_on_hand": true,
+        "shortfall": true
+      },
+      "all_match": true
+    }
+  ]
+}
